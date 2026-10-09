@@ -7,11 +7,6 @@ pipeline {
             choices: ['DEV', 'PROD'],
             description: 'Select deployment environment'
         )
-        booleanParam(
-            name: 'RUN_TESTS',
-            defaultValue: true,
-            description: 'Run tests before deployment?'
-        )
     }
     stages {
         stage('Build') {
@@ -20,13 +15,8 @@ pipeline {
             }
         }
         stage('Test') {
-            when {
-                expression {
-                    params.RUN_TESTS == true
-                }
-            }
             steps {
-                bat 'echo Running tests...'
+                bat 'echo Running automated tests...'
             }
         }
         stage('Deploy to DEV') {
@@ -37,6 +27,16 @@ pipeline {
             }
             steps {
                 bat 'echo Deploying application to DEV...'
+            }
+        }
+        stage('Deploy to TEST') {
+            when {
+                expression {
+                    params.ENVIRONMENT == 'TEST'
+                }
+            }
+            steps {
+                bat 'echo Deploying application to TEST...'
             }
         }
         stage('Deploy to PROD') {
