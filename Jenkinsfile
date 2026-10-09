@@ -1,36 +1,32 @@
 pipeline {
     agent any
 
+    tools {
+        jdk 'JAVA-17'
+    }
+
     stages {
+        stage('Verify Java') {
+            steps {
+                bat 'java -version'
+                bat 'javac -version'
+                bat 'echo JAVA_HOME=%JAVA_HOME%'
+            }
+        }
+
         stage('Build') {
             steps {
-                echo 'Building the project...'
-                bat 'echo Build completed successfully!'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'Running tests...'
-                bat 'echo Tests passed!'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deploying the application...'
-                bat 'echo Deployment completed!'
+                echo 'Java is ready for the build!'
             }
         }
     }
 
     post {
         success {
-            echo 'Pipeline completed successfully!'
+            echo 'JDK setup and verification successful!'
         }
         failure {
-            echo 'Pipeline failed.'
+            echo 'JDK setup or verification failed.'
         }
     }
 }
-
