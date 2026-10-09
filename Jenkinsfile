@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Use Jenkins Java 21') {
             tools {
-                jdk 'JDK21'
+                jdk 'JAVA-17'
             }
             steps {
                 echo 'Using Jenkins-managed Java'
@@ -22,7 +22,7 @@ pipeline {
 
         stage('Use Jenkins Java Again') {
             tools {
-                jdk 'JDK21'
+                jdk 'JAVA-17'
             }
             steps {
                 bat 'java -version'
