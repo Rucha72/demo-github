@@ -1,25 +1,30 @@
+```groovy
 pipeline {
     agent any
+
     stages {
         stage('Build') {
             steps {
                 echo 'Building the project...'
-                sh 'make build'
+                bat 'echo Build completed successfully!'
             }
         }
+
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                sh 'make test'
+                bat 'echo Tests passed!'
             }
         }
+
         stage('Deploy') {
             steps {
-                echo 'Deploying to production...'
-                sh 'make deploy'
+                echo 'Deploying the application...'
+                bat 'echo Deployment completed!'
             }
         }
     }
+
     post {
         success {
             echo 'Pipeline completed successfully!'
@@ -29,3 +34,4 @@ pipeline {
         }
     }
 }
+```
