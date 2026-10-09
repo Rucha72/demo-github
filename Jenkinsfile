@@ -2,30 +2,29 @@ pipeline {
     agent any
 
     stages {
-        stage('Use Jenkins Java 21') {
-            tools {
-                jdk 'JAVA-17'
-            }
+
+        stage('Show Parameters') {
             steps {
-                echo 'Using Jenkins-managed Java'
-                bat 'java -version'
-                bat 'echo JAVA_HOME=%JAVA_HOME%'
+                echo "Selected Environment: ${params.ENVIRONMENT}"
+                echo "Run Tests: ${params.RUN_TESTS}"
             }
         }
 
-        stage('Use System Java 25') {
+        stage('Build') {
             steps {
-                echo 'Using system-installed Java'
-                bat '"C:\\Program Files\\Java\\jdk-25.0.4\\bin\\java.exe" -version'
+                bat 'echo Building application...'
             }
         }
 
-        stage('Use Jenkins Java Again') {
-            tools {
-                jdk 'JAVA-17'
-            }
+        stage('Test') {
             steps {
-                bat 'java -version'
+                bat 'echo Running tests...'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                bat 'echo Deploying application...'
             }
         }
     }
